@@ -35,7 +35,14 @@ def fetch_vinyls(artist_name, known_vinyls):
         print(f"An error occurred while fetching vinyls: {e}")
         return []
 
-if __name__ == "__main__":
+def show_tracking_animation():
+    frames = ["|", "/", "-", "\\"]
+    while True:
+        for frame in frames:
+            print(f"\rTracking for new vinyls... {frame}", end="", flush=True)
+            time.sleep(0.2)
+
+def main():
     artist_name = input("Enter the artist's name: ").strip()
     known_vinyls = set()
 
@@ -60,9 +67,11 @@ if __name__ == "__main__":
                     print(f"\033[94mLink: {vinyl['link']}\033[0m\n")  
 
             else:
-                print("No new vinyls found.")
-
-            time.sleep(300) 
+                for _ in range(5):  
+                    show_tracking_animation()
 
     except KeyboardInterrupt:
         print("\nStopped tracking vinyls.")
+
+if __name__ == "__main__":
+    main()
